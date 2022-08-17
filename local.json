@@ -1,0 +1,10 @@
+{
+  "port": "4242",
+  "mongo_server": "localhost:27017",
+  "mongo_database": "stripe-payment",
+  "payment_config": {
+    "key": "pk_test_51GvkFkFQPnig6EmyrxxbVmWEHOTi1jX9Xe6xkteaTvMJXgdhAVC9TNeN92kv9jGG9nurGqI3aRslyg9zCJ13I2cd00ZB2Cg3np",
+    "secret": "sk_test_51GvkFkFQPnig6Emy34dxp6HIbHDiEJaaZ4FJ8fAIGXEPfsV1b183aj9uKrjki2EVIuGCkqz449galzTwFVRVVk7f00uAwl1xET",
+    "account_id": "acct_1GvkFkFQPnig6Emy"
+  }
+}
