@@ -55,6 +55,7 @@ func (p *paymentRepositoryImpl) Update(ctx context.Context, payment *model.Payme
 
 	selector := bson.M{"_id": bson.M{"$eq": payment.ID}}
 
+	log.Printf("updated payment %+v", *payment)
 	update := bson.M{"$set": payment}
 
 	_, err := c.UpdateOne(ctx, selector, update)

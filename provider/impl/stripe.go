@@ -60,6 +60,7 @@ func (s *stripeProvider) Create(payment *model.Payment) (*api.PaymentResponse, e
 	}
 
 	response := &api.PaymentResponse{
+		ID:           pi.ID,
 		PublicKey:    paymentConfig.Key,
 		ClientSecret: pi.ClientSecret,
 		Extras:       nil,

@@ -15,7 +15,7 @@ document
 
 // Fetches a payment intent and captures the client secret
 async function initialize() {
-    const response = await fetch("/payment", {
+    const response = await fetch("http://localhost:4242/payment", {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({amount: 1500, currency: "USD"}),
@@ -44,7 +44,7 @@ async function handleSubmit(e) {
         elements,
         confirmParams: {
             // Make sure to change this to your payment completion page
-            return_url: "http://localhost:4242/checkout.html",
+            return_url: "http://localhost:4200/checkout.html",
         },
     });
 

@@ -8,11 +8,13 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/gin-contrib/cors"
 	`github.com/gin-gonic/gin`
 	"github.com/stripe/stripe-go/v72"
 	"github.com/stripe/stripe-go/v72/paymentintent"
 
 	`stripe.com/docs/payments/core/config`
+	`stripe.com/docs/payments/core/constant`
 )
 
 func main() {
@@ -24,10 +26,24 @@ func main() {
 
 	configuration := config.GetAppConfiguration()
 
+	log.Printf("Configuration which is not supposed to be logged %+v", *configuration)
 	//gin router
 	router := gin.Default()
-	router.Static("/", "./public")
+	//router.Static("/", "./public")
 	//router.LoadHTMLGlob("public/*")
+	allowedHeaders := []string{constant.ACCEPT, constant.ORIGIN, constant.ACCEPT, constant.CONTENT_TYPE_HEADER, constant.AUTHORIZATION, constant.DATE_USED, constant.X_REQUESTED_WITH}
+
+	router.Use(cors.New(cors.Config{
+		AllowOrigins: []string{"*"},
+		AllowMethods: []string{"GET", "POST", "OPTIONS", "HEAD", "PUT", "DELETE"},
+		AllowHeaders: allowedHeaders,
+	}))
+
+	router.GET("/ping", func(c *gin.Context) {
+		c.JSON(200, gin.H{
+			"message": "pong",
+		})
+	})
 	application := NewApp(configuration, router)
 
 	application.Start(ctx)

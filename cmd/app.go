@@ -20,18 +20,18 @@ type app struct {
 func (a *app) Start(ctx context.Context) {
 
 	//NewPaymentRepositoryImpl
-	paymentRepository, err := repositoryimpl.NewPaymentRepositoryImpl(ctx, mongoUri(a.Configuration), "cb-payments")
+	paymentRepository, err := repositoryimpl.NewPaymentRepositoryImpl(ctx, mongoUri(a.Configuration), a.Configuration.MongoDatabase)
 	if err != nil {
 		log.Fatalf("NewPaymentRepositoryImpl err %v", err)
 	}
 
-	//NewPaymentServiceImpl
-	paymentService := serviceimpl.NewPaymentServiceImpl(a.Configuration.PaymentConfig, paymentRepository)
+	//NewGatewayServiceImpl
+	gatewayService := serviceimpl.NewGatewayServiceImpl(a.Configuration.PaymentConfig, paymentRepository)
 
-	//NewPaymentHandler
-	paymentHandler := handler.NewPayment(paymentService)
+	//NewGatewayHandler
+	gatewayHandler := handler.NewGateway(gatewayService, a.Configuration.PaymentConfig)
 
-	paymentHandler.RegisterRoutes(ctx, a.Router)
+	gatewayHandler.RegisterRoutes(ctx, a.Router)
 
 	log.Printf("Application loaded successfully on port : %s", a.Configuration.Port)
 	log.Fatal(a.Router.Run(":" + a.Configuration.Port))

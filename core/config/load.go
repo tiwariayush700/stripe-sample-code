@@ -24,9 +24,10 @@ type MongoConfig struct {
 }
 
 type Payment struct {
-	Key       string `json:"key"`
-	Secret    string `json:"secret"`
-	AccountID string `json:"account_id"`
+	Key           string `json:"key"`
+	Secret        string `json:"secret"`
+	AccountID     string `json:"account_id"`
+	WebhookSecret string `json:"webhook_secret"`
 }
 
 var (
